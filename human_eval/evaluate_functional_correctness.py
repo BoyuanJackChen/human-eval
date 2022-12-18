@@ -22,6 +22,7 @@ def entry_point(
     k = list(map(int, k.split(",")))
     results = evaluate_functional_correctness(sample_file, k, n_workers, timeout, problem_file)
     print(results)
+    print("aha!")
 
 
 def main():
