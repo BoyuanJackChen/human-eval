@@ -156,8 +156,8 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             try:
                 exec_globals = {}
                 with swallow_io():
-                    # with time_limit(timeout):
-                    exec(check_program, exec_globals)
+                    with time_limit(timeout):
+                        exec(check_program, exec_globals)
                 result.append("passed")
                 print("try done")
             except TimeoutException:
