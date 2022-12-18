@@ -145,11 +145,14 @@ def evaluate_functional_correctness(
     #     data = json.load(json_file)
     with open(sample_file, 'r') as json_file:
         json_list = list(json_file)
+    index = 0
     for json_str in json_list:
         result = json.loads(json_str)
         # print(f"result: {result}")
         # print(isinstance(result, dict))
-        data.append(result)
+        if index%3==0:
+            data.append(result)
+        index += 1
 
     # for sample in tqdm.tqdm(stream_jsonl(sample_file)):
     for sample in data:
@@ -216,12 +219,15 @@ def evaluate_functional_correctness(
 
     # Finally, save the results in one file:
     def combine_results():
+        idx = 0
         for sample in stream_jsonl(sample_file):
-            task_id = sample["task_id"]
-            result = results[task_id].pop(0)
-            sample["result"] = result[1]["result"]
-            sample["passed"] = result[1]["passed"]
-            yield sample
+            if idx % 3==0:
+                task_id = sample["task_id"]
+                result = results[task_id].pop(0)
+                sample["result"] = result[1]["result"]
+                sample["passed"] = result[1]["passed"]
+                yield sample
+            idx += 1
 
     out_file = sample_file + "_results.jsonl"
     print(f"Writing results to {out_file}...")
