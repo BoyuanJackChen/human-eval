@@ -100,18 +100,12 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
     :param completion_id: an optional completion ID so we can match
         the results later even if execution finishes asynchronously.
     """
-
-    # print(f"completion is: \n{completion}")
     completion_text = completion['choices'][0]['text']
-    # print(f"completion_text is: \n{completion_text}")
-    # print(f"problem[entry_point] is: \n{problem['entry_point']}")
 
     @contextlib.contextmanager
     def chdir(root):
-        # print(f"in chdir")
         if root == ".":
             # Normally not entering this clause
-            # print(f"\n\n in root, which is {root} \n\n")
             yield
             return
         # cwd = os.getcwd()   # What is this supposed to be??
@@ -123,19 +117,15 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             raise exc
         finally:
             # print(f"\n\nfinally in chdir, cwd is {cwd}\n\n")
-            os.chdir("/Users/boyuanchen/Desktop/human-eval")
+            os.chdir(cwd)
 
     @contextlib.contextmanager
     def create_tempdir():
         with tempfile.TemporaryDirectory() as dirname:
-            # print(f"the temporary dirname is: {dirname}")
             with chdir(dirname):
                 yield dirname
 
     def unsafe_execute():
-        # print("entering unsafe_execute")
-        # import os
-        # print(f"\n\ncwd is {os.getcwd()}\n\n")
         with create_tempdir():
             # These system calls are needed when cleaning up tempdir.
             import os
@@ -151,8 +141,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
                 problem["test"] + "\n" +
                 f"check({problem['entry_point']})"
             )
-            # print(f"\ncheck program is: \n{check_program}\n\n")
-            # print(f"prompt is {problem['prompt']}")
+
             try:
                 exec_globals = {}
                 with swallow_io():
@@ -173,7 +162,6 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             os.chdir = chdir
 
     result = []
-    # print(f"problem is {len(problem.keys())}")
     unsafe_execute()
     print(f"result is {result}")
     if not result:
@@ -190,11 +178,10 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
 def chdir(root):
     print("\n\n In chdir \n\n")
     if root == ".":
-        # Normally not entering this clause
-        # print(f"\n\n in root, which is {root} \n\n")
         yield
         return
-    # cwd = os.getcwd()   # What is this supposed to be??
+    # cwd = os.getcwd()
+    # Hard coding cwd because it is not working
     cwd = "/Users/boyuanchen/Desktop/human-eval"
     os.chdir(root)
     try:
@@ -207,7 +194,6 @@ def chdir(root):
 @contextlib.contextmanager
 def create_tempdir():
     with tempfile.TemporaryDirectory() as dirname:
-        # print(f"the temporary dirname is: {dirname}")
         with chdir(dirname):
             yield dirname
 
