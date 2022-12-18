@@ -10,7 +10,7 @@ import signal
 import tempfile
 
 
-def check_correctness(problem: Dict, completion: str, timeout: float,
+def check_correctness_multihead(problem: Dict, completion: str, timeout: float,
                       completion_id: Optional[int] = None) -> Dict:
     """
     Evaluates the functional correctness of a completion by running the test
@@ -21,9 +21,8 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
     """
 
     def unsafe_execute():
-
+        print("In unsafe_execute")
         with create_tempdir():
-
             # These system calls are needed when cleaning up tempdir.
             import os
             import shutil
@@ -40,6 +39,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
                 problem["test"] + "\n" +
                 f"check({problem['entry_point']})"
             )
+            print(f"check program is: \n{check_program}")
 
             try:
                 exec_globals = {}
@@ -57,9 +57,12 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
 # uncomment the following line and proceed at your own risk:
                         exec(check_program, exec_globals)
                 result.append("passed")
+                print("try done")
             except TimeoutException:
+                print("Time out")
                 result.append("timed out")
             except BaseException as e:
+                print("Base Except")
                 result.append(f"failed: {e}")
 
             # Needed for cleaning up.
@@ -71,10 +74,11 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
     result = manager.list()
 
     p = multiprocessing.Process(target=unsafe_execute)
-    p.start()
+    p.start()  # This line gives bug
     p.join(timeout=timeout + 1)
     if p.is_alive():
         p.kill()
+    # unsafe_execute()
 
     if not result:
         result.append("timed out")
@@ -85,6 +89,127 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
         result=result[0],
         completion_id=completion_id,
     )
+
+
+def check_correctness(problem: Dict, completion: str, timeout: float,
+                      completion_id: Optional[int] = None) -> Dict:
+    """
+    Evaluates the functional correctness of a completion by running the test
+    suite provided in the problem.
+
+    :param completion_id: an optional completion ID so we can match
+        the results later even if execution finishes asynchronously.
+    """
+
+    # print(f"completion is: \n{completion}")
+    completion_text = completion['choices'][0]['text']
+    # print(f"completion_text is: \n{completion_text}")
+    # print(f"problem[entry_point] is: \n{problem['entry_point']}")
+
+    @contextlib.contextmanager
+    def chdir(root):
+        # print(f"in chdir")
+        if root == ".":
+            # Normally not entering this clause
+            # print(f"\n\n in root, which is {root} \n\n")
+            yield
+            return
+        # cwd = os.getcwd()   # What is this supposed to be??
+        cwd = "/Users/boyuanchen/Desktop/human-eval"
+        os.chdir(root)
+        try:
+            yield
+        except BaseException as exc:
+            raise exc
+        finally:
+            # print(f"\n\nfinally in chdir, cwd is {cwd}\n\n")
+            os.chdir("/Users/boyuanchen/Desktop/human-eval")
+
+    @contextlib.contextmanager
+    def create_tempdir():
+        with tempfile.TemporaryDirectory() as dirname:
+            # print(f"the temporary dirname is: {dirname}")
+            with chdir(dirname):
+                yield dirname
+
+    def unsafe_execute():
+        # print("entering unsafe_execute")
+        # import os
+        # print(f"\n\ncwd is {os.getcwd()}\n\n")
+        with create_tempdir():
+            # These system calls are needed when cleaning up tempdir.
+            import os
+            import shutil
+            rmtree = shutil.rmtree
+            rmdir = os.rmdir
+            chdir = os.chdir
+            # Disable functionalities that can make destructive changes to the test.
+            reliability_guard()
+            # Construct the check program and run it.
+            check_program = (
+                problem["prompt"] + completion_text + "\n" +
+                problem["test"] + "\n" +
+                f"check({problem['entry_point']})"
+            )
+            # print(f"\ncheck program is: \n{check_program}\n\n")
+            # print(f"prompt is {problem['prompt']}")
+            try:
+                exec_globals = {}
+                with swallow_io():
+                    # with time_limit(timeout):
+                    exec(check_program, exec_globals)
+                result.append("passed")
+                print("try done")
+            except TimeoutException:
+                print("\n\nTime out\n\n")
+                result.append("timed out")
+            except BaseException as e:
+                print("Base Except")
+                result.append(f"failed: {e}")
+
+            # Needed for cleaning up.
+            shutil.rmtree = rmtree
+            os.rmdir = rmdir
+            os.chdir = chdir
+
+    result = []
+    # print(f"problem is {len(problem.keys())}")
+    unsafe_execute()
+    print(f"result is {result}")
+    if not result:
+        result.append("timed out")
+    return dict(
+        task_id=problem["task_id"],
+        passed=result[0] == "passed",
+        result=result[0],
+        completion_id=completion_id,
+    )
+
+
+@contextlib.contextmanager
+def chdir(root):
+    print("\n\n In chdir \n\n")
+    if root == ".":
+        # Normally not entering this clause
+        # print(f"\n\n in root, which is {root} \n\n")
+        yield
+        return
+    # cwd = os.getcwd()   # What is this supposed to be??
+    cwd = "/Users/boyuanchen/Desktop/human-eval"
+    os.chdir(root)
+    try:
+        yield
+    except BaseException as exc:
+        raise exc
+    finally:
+        os.chdir(cwd)
+
+@contextlib.contextmanager
+def create_tempdir():
+    with tempfile.TemporaryDirectory() as dirname:
+        # print(f"the temporary dirname is: {dirname}")
+        with chdir(dirname):
+            yield dirname
 
 
 @contextlib.contextmanager
@@ -107,12 +232,6 @@ def swallow_io():
             with redirect_stdin(stream):
                 yield
 
-
-@contextlib.contextmanager
-def create_tempdir():
-    with tempfile.TemporaryDirectory() as dirname:
-        with chdir(dirname):
-            yield dirname
 
 
 class TimeoutException(Exception):
@@ -140,19 +259,7 @@ class redirect_stdin(contextlib._RedirectStream):  # type: ignore
     _stream = 'stdin'
 
 
-@contextlib.contextmanager
-def chdir(root):
-    if root == ".":
-        yield
-        return
-    cwd = os.getcwd()
-    os.chdir(root)
-    try:
-        yield
-    except BaseException as exc:
-        raise exc
-    finally:
-        os.chdir(cwd)
+
 
 
 def reliability_guard(maximum_memory_bytes: Optional[int] = None):
