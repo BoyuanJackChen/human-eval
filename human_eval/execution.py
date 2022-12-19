@@ -136,9 +136,9 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             # Disable functionalities that can make destructive changes to the test.
             reliability_guard()
             # Construct the check program and run it.
-            print(f"\n\nproblem['prompt'] is {problem['prompt']}\n")
-            print(f"completion_text is {completion_text}\n")
-            print(f"problem['test'] is {problem['test']}\n")
+            # print(f"\n\nproblem['prompt'] is {problem['prompt']}\n")
+            # print(f"completion_text is {completion_text}\n")
+            # print(f"problem['test'] is {problem['test']}\n")
             check_program = (
                 problem["prompt"] + completion_text + "\n" +
                 problem["test"] + "\n" +
