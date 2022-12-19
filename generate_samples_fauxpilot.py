@@ -3,7 +3,7 @@ import openai
 openai.api_key = 'dummy'
 openai.api_base = 'http://0.0.0.0:5000/v1'
 
-beam_width = 4
+beam_width = 8
 beam_diversity_rate = 2.0
 def generate_one_completion(prompt):
     result = openai.Completion.create(
