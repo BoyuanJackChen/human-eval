@@ -139,8 +139,6 @@ def evaluate_functional_correctness(
     results = defaultdict(list)
     data = []
 
-    print(f"sample_file is {sample_file}")
-    sample_file = "samples.jsonl"
     # with open(sample_file) as json_file:
     #     data = json.load(json_file)
     with open(sample_file, 'r') as json_file:
@@ -150,13 +148,13 @@ def evaluate_functional_correctness(
         result = json.loads(json_str)
         # print(f"result: {result}")
         # print(isinstance(result, dict))
-        if index%3==0:
+        if index % 3==0:
             data.append(result)
         index += 1
 
     # for sample in tqdm.tqdm(stream_jsonl(sample_file)):
     for sample in data:
-        print(f"sample is {sample}")
+        # print(f"sample is {sample}")
         task_id = sample["task_id"]
         completion = sample["completion"]
         args = (problems[task_id], completion, timeout, completion_id[task_id])
