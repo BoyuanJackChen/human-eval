@@ -10,8 +10,8 @@ def generate_one_completion(prompt):
         engine='codegen',
         prompt=prompt,
         max_tokens=200,
-        logprobs=1,
         stop=["\n\n"],
+        temperature=0.7,
         beam_width=beam_width,
         beam_search_diversity_rate=beam_diversity_rate
     )
