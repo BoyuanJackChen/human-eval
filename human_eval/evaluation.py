@@ -25,8 +25,11 @@ def estimate_pass_at_k(
         Calculates 1 - comb(n - c, k) / comb(n, k).
         """
         if n - c < k:
+            print(f"n is {n}; c is {c}; result is 1.0")
             return 1.0
-        return 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))
+        result = 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))
+        print(f"n is {n}; c is {c}; result is {result}")
+        return result
 
     if isinstance(num_samples, int):
         num_samples_it = itertools.repeat(num_samples, len(num_correct))
@@ -78,7 +81,7 @@ def evaluate_functional_correctness_multithread(
             completion_id[task_id] += 1
             n_samples += 1
 
-        print(len(completion_id), len(problems))
+        # print(len(completion_id), len(problems))
         # assert len(completion_id) == len(problems), "Some problems are not attempted."
 
         print("Running test suites...")
@@ -139,8 +142,6 @@ def evaluate_functional_correctness(
     results = defaultdict(list)
     data = []
 
-    print(f"sample_file is {sample_file}")
-    sample_file = "samples.jsonl"
     # with open(sample_file) as json_file:
     #     data = json.load(json_file)
     with open(sample_file, 'r') as json_file:
@@ -150,13 +151,13 @@ def evaluate_functional_correctness(
         result = json.loads(json_str)
         # print(f"result: {result}")
         # print(isinstance(result, dict))
-        if index%3==0:
-            data.append(result)
+        # if index % 3==0:
+        data.append(result)
         index += 1
 
     # for sample in tqdm.tqdm(stream_jsonl(sample_file)):
     for sample in data:
-        print(f"sample is {sample}")
+        # print(f"sample is {sample}")
         task_id = sample["task_id"]
         completion = sample["completion"]
         args = (problems[task_id], completion, timeout, completion_id[task_id])
@@ -164,11 +165,11 @@ def evaluate_functional_correctness(
         futures.append(future)
         completion_id[task_id] += 1
         n_samples += 1
-        print(f"n_samples is {n_samples}")
-    print(len(completion_id), len(problems))
+        # print(f"n_samples is {n_samples}")
+    # print(len(completion_id), len(problems))
     print("Running test suites...")
     for future in futures:
-        print(f"future is {future}")
+        # print(f"future is {future}")
         result = future
         results[result["task_id"]].append((result["completion_id"], result))
 
@@ -208,12 +209,14 @@ def evaluate_functional_correctness(
         passed = [r[1]["passed"] for r in result]
         total.append(len(passed))
         correct.append(sum(passed))
+
+    # total is all one's with length of num questions
+    # correct is ones on correct ones, zeros on wrong ones
     total = np.array(total)
     correct = np.array(correct)
-    print(total)
 
+    # ks is [1, 10, 100]
     ks = k
-    print(f"ks is {ks}")
     pass_at_k = {f"pass@{k}": estimate_pass_at_k(total, correct, k).mean()
                  for k in ks if (total >= k).all()}
 
@@ -221,12 +224,12 @@ def evaluate_functional_correctness(
     def combine_results():
         idx = 0
         for sample in stream_jsonl(sample_file):
-            if idx % 3==0:
-                task_id = sample["task_id"]
-                result = results[task_id].pop(0)
-                sample["result"] = result[1]["result"]
-                sample["passed"] = result[1]["passed"]
-                yield sample
+            # if idx % 3==0:
+            task_id = sample["task_id"]
+            result = results[task_id].pop(0)
+            sample["result"] = result[1]["result"]
+            sample["passed"] = result[1]["passed"]
+            yield sample
             idx += 1
 
     out_file = sample_file + "_results.jsonl"
