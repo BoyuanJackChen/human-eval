@@ -1,16 +1,19 @@
 from human_eval.data import write_jsonl, read_problems
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import CodeGenModel
+import torch
 
-eof_token = 50256
+eos_token = 50256
 stop_words = ["\n\n"]
 problems = read_problems()
 beam_width = 4
 num_beam_groups = 4
 beam_diversity_rate = 0.7
+device = torch.device('cuda:7')
 
 tokenizer = AutoTokenizer.from_pretrained("Salesforce/codegen-350M-mono")
 model = AutoModelForCausalLM.from_pretrained("Salesforce/codegen-350M-mono")
+model.to(device)
 
 def trim_with_stopwords(output, stopwords) -> str:
     for j in range(len(output)):
@@ -23,8 +26,10 @@ def trim_with_stopwords(output, stopwords) -> str:
 def generate_one_completion(prompt):
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
     generated_ids = model.generate(
-        input_ids,
+        input_ids.to(device),
         max_new_tokens=200,
+        eos_token_id=eos_token,
+        pad_token_id=eos_token,
         num_beams=beam_width,
         num_beam_groups= num_beam_groups,
         diversity_penalty=beam_diversity_rate
