@@ -31,6 +31,7 @@ def trim_with_stopwords(output, stopwords, original_prompt) -> str:
 
 def main(args):
     loaded = args.loaded_model
+    model_name = loaded.split('/')[-1]
     device = torch.device(args.device)
     num_samples_per_task = args.num_samples_per_task
     tokenizer = AutoTokenizer.from_pretrained(loaded)
@@ -67,7 +68,8 @@ def main(args):
                 completion=generate_one_completion(problems[task_id]["prompt"])
             )
             samples.append(sample)
-    write_jsonl(f"samples_{beam_width}_{beam_diversity_rate}_transformers{loaded}.jsonl", samples)
+
+    write_jsonl(f"samples_{beam_width}_{beam_diversity_rate}_transformers{model_name}.jsonl", samples)
 
 
 if __name__== "__main__":
