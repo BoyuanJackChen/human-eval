@@ -109,7 +109,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             yield
             return
         # cwd = os.getcwd()   # What is this supposed to be??
-        cwd = "/Users/boyuanchen/Desktop/human-eval"
+        cwd = "/home/bc3194/human-eval"
         os.chdir(root)
         try:
             yield
@@ -185,7 +185,7 @@ def chdir(root):
         return
     # cwd = os.getcwd()
     # Hard coding cwd because it is not working
-    cwd = "/Users/boyuanchen/Desktop/human-eval"
+    cwd = "/home/bc3194/human-eval"
     os.chdir(root)
     try:
         yield
