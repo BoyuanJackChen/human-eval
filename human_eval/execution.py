@@ -100,7 +100,8 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
     :param completion_id: an optional completion ID so we can match
         the results later even if execution finishes asynchronously.
     """
-    completion_text = completion['choices'][0]['text'][0]
+    completion_text = completion
+    # completion_text = completion['choices'][0]['text'][0]
 
     @contextlib.contextmanager
     def chdir(root):

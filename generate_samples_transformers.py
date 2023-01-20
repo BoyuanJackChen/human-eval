@@ -8,14 +8,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-350M-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
+parser.add_argument('--beam_width', type=int, default=4)
+parser.add_argument('--num_beam_groups', type=int, default=2)
+parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
-stop_words = ["\n\n"]
+stop_words = ["\n\n", "\n \n", "\n  \n", "\n   \n", "\n    \n"]
 problems = read_problems()
-beam_width = 4
-num_beam_groups = 4
-beam_diversity_rate = 0.7
 
 
 def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
@@ -39,6 +39,10 @@ def main(args):
     tokenizer = AutoTokenizer.from_pretrained(loaded)
     model = AutoModelForCausalLM.from_pretrained(loaded)
     model.to(device)
+
+    beam_width = args.beam_width
+    num_beam_groups = args.num_beam_groups
+    beam_diversity_rate = args.beam_diversity_rate
     # samples = [
     #     dict(task_id=task_id, completion=generate_one_completion(problems[task_id]["prompt"]))
     #     # for task_id in select_ids
@@ -73,7 +77,7 @@ def main(args):
             )
             samples.append(sample)
 
-    write_jsonl(f"samples_{beam_width}_{beam_diversity_rate}_transformers{model_name}.jsonl", samples)
+    write_jsonl(f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}.jsonl", samples)
 
 
 if __name__== "__main__":
