@@ -14,7 +14,7 @@ parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
-stop_words = ["\n\n", "\n \n", "\n  \n", "\n   \n", "\n    \n"]
+stop_words = ["\n\n"]
 problems = read_problems()
 
 
@@ -30,7 +30,7 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
                     min_i = i
         answer = answer[:min_i]
         result.append(answer)
-    return result
+    return result[0]
 
 
 def main(args):
