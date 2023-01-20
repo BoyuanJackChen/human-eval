@@ -26,7 +26,7 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
         min_i = len(answer)
         for w in sorted(stopwords, reverse=True):
             for i in range(len(answer)):
-                if answer[i:].startswith(w) and min_i > i:
+                if answer[i:].startswith(w) and min_i > i >= 5:
                     min_i = i
         answer = answer[:min_i]
         result.append(answer)
