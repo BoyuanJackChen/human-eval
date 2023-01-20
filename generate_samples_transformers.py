@@ -18,15 +18,17 @@ num_beam_groups = 4
 beam_diversity_rate = 0.7
 
 
-def trim_with_stopwords(output, stopwords, original_prompt) -> str:
-    for j in range(len(output)):
-        len_prompt = len(original_prompt)
-        answer = output[j][len_prompt:]
+def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
+    result = []
+    len_prompt = len(original_prompt)
+    for output in range(len(outputs)):
+        answer = output[len_prompt:]
         for w in sorted(stopwords, reverse=True):
-            for i in range(len(output[j])):
+            for i in range(len(answer)):
                 if answer[i:].startswith(w):
-                    return answer[:i]
-    return output
+                    answer = answer[:i]
+        result.append(answer)
+    return result
 
 
 def main(args):
@@ -55,6 +57,7 @@ def main(args):
             diversity_penalty=beam_diversity_rate
         )
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+        print(f"generated_text is:\n{generated_text}")
         trimmed_text = trim_with_stopwords(generated_text, stop_words, prompt)
         return trimmed_text
 
