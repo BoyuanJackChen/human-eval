@@ -64,7 +64,6 @@ def main(args):
             num_beams=beam_width,
             num_beam_groups=num_beam_groups,
             diversity_penalty=beam_diversity_rate,
-            do_sample=True,
         )
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         print(f"generated_text is:\n{generated_text}")
