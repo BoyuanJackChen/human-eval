@@ -21,7 +21,7 @@ beam_diversity_rate = 0.7
 def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
     result = []
     len_prompt = len(original_prompt)
-    for output in range(len(outputs)):
+    for output in outputs:
         answer = output[len_prompt:]
         for w in sorted(stopwords, reverse=True):
             for i in range(len(answer)):
