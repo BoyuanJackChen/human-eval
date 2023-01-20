@@ -63,7 +63,7 @@ def main(args):
             diversity_penalty=beam_diversity_rate
         )
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
-        # print(f"generated_text is:\n{generated_text}")
+        print(f"generated_text is:\n{generated_text}")
         trimmed_text = trim_with_stopwords(generated_text, stop_words, prompt)
         print(f"trimmed_text is:\n{trimmed_text}")
         return trimmed_text
