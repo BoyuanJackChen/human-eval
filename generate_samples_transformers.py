@@ -5,12 +5,13 @@ import torch
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-350M-mono')
+parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-2B-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
-parser.add_argument('--num_beam_groups', type=int, default=2)
+parser.add_argument('--num_beam_groups', type=int, default=4)
 parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
+parser.add_argument('--early_exit_layer', type=int, default=None)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
@@ -41,6 +42,8 @@ def main(args):
     tokenizer = AutoTokenizer.from_pretrained(loaded)
     model = AutoModelForCausalLM.from_pretrained(loaded)
     model.to(device)
+    if args.early_exit_layer is not None:
+        model.set_early_exit_layer(args.early_exit_layer)
 
     beam_width = args.beam_width
     num_beam_groups = args.num_beam_groups
@@ -79,7 +82,10 @@ def main(args):
             )
             samples.append(sample)
 
-    write_jsonl(f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}.jsonl", samples)
+    filename = f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
+    if args.early_exit_layer is not None:
+        filename += f"_early{args.early_exit_layer}"
+    write_jsonl(filename+".jsonl", samples)
 
 
 if __name__== "__main__":
