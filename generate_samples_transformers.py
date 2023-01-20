@@ -7,7 +7,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-350M-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
-parser.add_argument('--num_samples_per_task', type=int, default=3)
+parser.add_argument('--num_samples_per_task', type=int, default=1)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
@@ -28,7 +28,7 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
                 if answer[i:].startswith(w):
                     answer = answer[:i]
         result.append(answer)
-    return result
+    return result[0]
 
 
 def main(args):
