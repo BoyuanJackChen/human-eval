@@ -23,12 +23,14 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
     len_prompt = len(original_prompt)
     for output in outputs:
         answer = output[len_prompt:]
+        min_i = len(answer)
         for w in sorted(stopwords, reverse=True):
             for i in range(len(answer)):
-                if answer[i:].startswith(w):
-                    answer = answer[:i]
+                if answer[i:].startswith(w) and min_i > i:
+                    min_i = i
+        answer = answer[:min_i]
         result.append(answer)
-    return result[0]
+    return result
 
 
 def main(args):
