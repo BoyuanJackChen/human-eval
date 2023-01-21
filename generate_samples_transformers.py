@@ -7,7 +7,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-2B-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
-parser.add_argument('--num_samples_per_task', type=int, default=3)
+parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
 parser.add_argument('--num_beam_groups', type=int, default=4)
 parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
