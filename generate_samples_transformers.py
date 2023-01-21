@@ -11,7 +11,7 @@ parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
 parser.add_argument('--num_beam_groups', type=int, default=4)
 parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
-parser.add_argument('--early_exit_layer', type=int, default=None)
+parser.add_argument('--early_exit_layer', type=int, default=15)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
@@ -34,6 +34,7 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
     return result[0]
 
 
+
 def main(args):
     loaded = args.loaded_model
     model_name = loaded.split('/')[-1]
@@ -48,6 +49,9 @@ def main(args):
     beam_width = args.beam_width
     num_beam_groups = args.num_beam_groups
     beam_diversity_rate = args.beam_diversity_rate
+    all_beam_widths = [2,4,8]
+    all_diversity = [0.0, 0.3, 0.5, 0.7, 1.0]
+
     # samples = [
     #     dict(task_id=task_id, completion=generate_one_completion(problems[task_id]["prompt"]))
     #     # for task_id in select_ids
@@ -71,21 +75,40 @@ def main(args):
         print(f"trimmed_text is:\n{trimmed_text}")
         return trimmed_text
 
-    print("samples started")
-    samples = []
-    for task_id in problems:
-        print(f"Generating task {task_id}")
-        for _ in range(num_samples_per_task):
-            sample = dict(
-                task_id=task_id,
-                completion=generate_one_completion(problems[task_id]["prompt"])
-            )
-            samples.append(sample)
+    for beam_width in all_beam_widths:
+        for beam_diversity_rate in all_diversity:
+            num_beam_groups = beam_width
+            print(f"samples started on {beam_width, beam_diversity_rate}")
+            samples = []
+            for task_id in problems:
+                print(f"Generating task {task_id}")
+                for _ in range(num_samples_per_task):
+                    sample = dict(
+                        task_id=task_id,
+                        completion=generate_one_completion(problems[task_id]["prompt"])
+                    )
+                    samples.append(sample)
 
-    filename = f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
-    if args.early_exit_layer is not None:
-        filename += f"_early{args.early_exit_layer}"
-    write_jsonl(filename+".jsonl", samples)
+            filename = f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
+            if args.early_exit_layer is not None:
+                filename += f"_early{args.early_exit_layer}"
+            write_jsonl(filename + ".jsonl", samples)
+
+    # print("samples started")
+    # samples = []
+    # for task_id in problems:
+    #     print(f"Generating task {task_id}")
+    #     for _ in range(num_samples_per_task):
+    #         sample = dict(
+    #             task_id=task_id,
+    #             completion=generate_one_completion(problems[task_id]["prompt"])
+    #         )
+    #         samples.append(sample)
+    #
+    # filename = f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
+    # if args.early_exit_layer is not None:
+    #     filename += f"_early{args.early_exit_layer}"
+    # write_jsonl(filename+".jsonl", samples)
 
 
 if __name__== "__main__":
