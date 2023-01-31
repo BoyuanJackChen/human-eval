@@ -5,13 +5,13 @@ import torch
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-2B-mono')
+parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-16B-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
 parser.add_argument('--num_beam_groups', type=int, default=4)
 parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
-parser.add_argument('--early_exit_layer', type=int, default=15)
+parser.add_argument('--early_exit_layer', type=int, default=None)
 FLAGS = parser.parse_args()
 
 eos_token = 50256
@@ -40,9 +40,9 @@ def main(args):
     model_name = loaded.split('/')[-1]
     device = torch.device(args.device)
     num_samples_per_task = args.num_samples_per_task
-    tokenizer = AutoTokenizer.from_pretrained(loaded)
-    model = AutoModelForCausalLM.from_pretrained(loaded)
-    model.to(device)
+    tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(loaded, device_map="auto")
+    # model.to(device)
     if args.early_exit_layer is not None:
         model.set_early_exit_layer(args.early_exit_layer)
 
@@ -50,14 +50,8 @@ def main(args):
     num_beam_groups = args.num_beam_groups
     beam_diversity_rate = args.beam_diversity_rate
     all_beam_widths = [2,4,8]
-    all_diversity = [0.0, 0.3, 0.5, 0.7, 1.0]
+    all_diversity = [0.3]
 
-    # samples = [
-    #     dict(task_id=task_id, completion=generate_one_completion(problems[task_id]["prompt"]))
-    #     # for task_id in select_ids
-    #     for task_id in problems
-    #     for _ in range(num_samples_per_task)
-    # ]
     def generate_one_completion(prompt):
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
         generated_ids = model.generate(
@@ -70,7 +64,7 @@ def main(args):
             diversity_penalty=beam_diversity_rate,
         )
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
-        print(f"generated_text is:\n{generated_text}")
+        # print(f"generated_text is:\n{generated_text}")
         trimmed_text = trim_with_stopwords(generated_text, stop_words, prompt)
         print(f"trimmed_text is:\n{trimmed_text}")
         return trimmed_text
