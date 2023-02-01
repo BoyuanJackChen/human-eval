@@ -56,7 +56,7 @@ def main(args):
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
         generated_ids = model.generate(
             input_ids.to(device),
-            max_new_tokens=200,
+            max_new_tokens=300,
             eos_token_id=eos_token,
             pad_token_id=eos_token,
             num_beams=beam_width,
