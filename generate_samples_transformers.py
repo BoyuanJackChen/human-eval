@@ -3,14 +3,15 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import CodeGenModel
 import torch
 import argparse
+import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-6B-mono')
+parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-350M-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
 parser.add_argument('--num_beam_groups', type=int, default=4)
-parser.add_argument('--beam_diversity_rate', type=float, default=0.7)
+parser.add_argument('--beam_diversity_rate', type=float, default=0.3)
 parser.add_argument('--early_exit_layer', type=int, default=None)
 FLAGS = parser.parse_args()
 
@@ -41,8 +42,6 @@ def main(args):
     num_samples_per_task = args.num_samples_per_task
     tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
     model = AutoModelForCausalLM.from_pretrained(loaded, device_map="auto")
-    # device = torch.device(args.device)
-    # model.to(device)
     if args.early_exit_layer is not None:
         model.set_early_exit_layer(args.early_exit_layer)
 
