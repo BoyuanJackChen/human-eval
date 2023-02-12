@@ -5,7 +5,7 @@ import torch
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-16B-mono')
+parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-6B-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
@@ -38,10 +38,10 @@ def trim_with_stopwords(outputs, stopwords, original_prompt) -> str:
 def main(args):
     loaded = args.loaded_model
     model_name = loaded.split('/')[-1]
-    device = torch.device(args.device)
     num_samples_per_task = args.num_samples_per_task
     tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
     model = AutoModelForCausalLM.from_pretrained(loaded, device_map="auto")
+    # device = torch.device(args.device)
     # model.to(device)
     if args.early_exit_layer is not None:
         model.set_early_exit_layer(args.early_exit_layer)
@@ -49,14 +49,14 @@ def main(args):
     beam_width = args.beam_width
     num_beam_groups = args.num_beam_groups
     beam_diversity_rate = args.beam_diversity_rate
-    all_beam_widths = [2,4,8]
+    all_beam_widths = [4]
     all_diversity = [0.3]
 
     def generate_one_completion(prompt):
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
         generated_ids = model.generate(
-            input_ids.to(device),
-            max_new_tokens=300,
+            input_ids.to('cuda'),
+            max_new_tokens=200,
             eos_token_id=eos_token,
             pad_token_id=eos_token,
             num_beams=beam_width,
@@ -64,6 +64,7 @@ def main(args):
             diversity_penalty=beam_diversity_rate,
         )
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+        model.clear_early_exit_layer_indices()
         # print(f"generated_text is:\n{generated_text}")
         trimmed_text = trim_with_stopwords(generated_text, stop_words, prompt)
         print(f"trimmed_text is:\n{trimmed_text}")
