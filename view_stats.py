@@ -27,4 +27,4 @@ if __name__ == "__main__":
     loaded = 'Salesforce/codegen-350M-mono'
     all_appearance = np.load("stats_codegen-350M-mono.npy")
     tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
-    get_on_difficulty_idx(all_appearance, tokenizer, 0, 10)
+    get_on_difficulty_idx(all_appearance, tokenizer, 40, 60)

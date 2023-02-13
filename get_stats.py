@@ -4,6 +4,7 @@ from transformers import CodeGenModel
 import torch
 import argparse
 import numpy as np
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-16B-mono')
@@ -42,7 +43,7 @@ def main(args):
     num_samples_per_task = args.num_samples_per_task
     tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
     model = AutoModelForCausalLM.from_pretrained(loaded, device_map="auto")
-    all_appearance = np.zeros((55000,1000), dtype=np.int8)
+    all_appearance = np.zeros((52000,1200), dtype=np.int8)
 
     beam_width = args.beam_width
     num_beam_groups = args.num_beam_groups
@@ -90,13 +91,12 @@ def main(args):
     beam_width = 4; beam_diversity_rate = 0.3
     num_beam_groups = beam_width
     print(f"samples started on {beam_width, beam_diversity_rate}")
-    # counter = 1
     for task_id in problems:
-        # if counter <=0:
-        #     break
+        start_time = time.time()
         print(f"Generating task {task_id}")
         for _ in range(num_samples_per_task):
             prompt = problems[task_id]["prompt"]
+            model.set_early_exit_layer(None)
             completion, answer_list = generate_one_completion(prompt)
             model.clear_early_exit_layer_indices()
             print(completion)
@@ -104,7 +104,7 @@ def main(args):
                 token_idx = tokenizer.encode(target_token)[0]
                 appearance_idx = np.count_nonzero(all_appearance[token_idx])
                 input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-                print(f"Generating token '{target_token}'")
+                # print(f"Generating token '{target_token}'")
                 for layer in range(1, num_layers):
                     model.set_early_exit_layer(layer)
                     generated_ids = model.generate(
@@ -120,15 +120,17 @@ def main(args):
                     model.clear_early_exit_layer_indices()
                     generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
                     trimmed_text = trim_with_stopwords(generated_text, stop_words, prompt)
-                    print(f"layer {layer+1}: '{trimmed_text}'")
+                    # print(f"layer {layer+1}: '{trimmed_text}'")
                     if trimmed_text == target_token:
                         print(f"{target_token}: {layer+1}")
                         all_appearance[token_idx][appearance_idx] = layer + 1
                         break
                 prompt = prompt + target_token
-        # counter -= 1
-    np.save(f"stats_{model_name}.npy", all_appearance)
-    print("npy file saved")
+        end_time = time.time()
+        print(f"Task {task_id} took {end_time - start_time} seconds")
+        np.save(f"stats_{model_name}.npy", all_appearance)
+        print("npy file saved")
+
 
 
 if __name__== "__main__":
