@@ -43,7 +43,7 @@ def main(args):
     num_samples_per_task = args.num_samples_per_task
     tokenizer = AutoTokenizer.from_pretrained(loaded, device_map="auto")
     model = AutoModelForCausalLM.from_pretrained(loaded, device_map="auto")
-    all_appearance = np.zeros((52000,1200), dtype=np.int8)
+    all_appearance = np.zeros((53000,1200), dtype=np.int8)
 
     beam_width = args.beam_width
     num_beam_groups = args.num_beam_groups
