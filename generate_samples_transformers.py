@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-350M-mono')
+parser.add_argument('--loaded_model', type=str, default='Salesforce/codegen-16B-mono')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--num_samples_per_task', type=int, default=1)
 parser.add_argument('--beam_width', type=int, default=4)
@@ -50,7 +50,7 @@ def main(args):
     beam_diversity_rate = args.beam_diversity_rate
     all_beam_widths = [4]
     all_diversity = [0.3]
-    softmax_thresholds = [0.95, 0.99, 0.9, 0.8]
+    softmax_thresholds = [0.999, 0.99, 0.95, 0.9, 0.8]
     all_exit_layers = np.array([])
 
     def generate_one_completion(prompt, all_exit_layers):
