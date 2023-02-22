@@ -50,7 +50,7 @@ def main(args):
     beam_diversity_rate = args.beam_diversity_rate
     all_beam_widths = [4]
     all_diversity = [0.3]
-    softmax_thresholds = [0.999, 0.99, 0.95, 0.9, 0.8]
+    softmax_thresholds = [0.95, 0.9, 0.8]
     all_exit_layers = np.array([])
 
     def generate_one_completion(prompt, all_exit_layers):
