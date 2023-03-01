@@ -1,0 +1,328 @@
+Base Except
+result is ['failed: invalid syntax (<string>, line 12)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 14)']
+Base Except
+result is ['failed: unexpected indent (<string>, line 13)']
+Base Except
+result is ['failed: list index out of range']
+Base Except
+result is ["failed: unsupported operand type(s) for -: 'NoneType' and 'float'"]
+Base Except
+result is ['failed: list index out of range']
+Base Except
+result is ['failed: invalid syntax (<string>, line 14)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 12)']
+Base Except
+result is ['failed: expected an indented block (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 27)']
+Base Except
+result is ["failed: name 'lenght' is not defined"]
+Base Except
+result is ['failed: unexpected indent (<string>, line 14)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: expected an indented block (<string>, line 36)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 10)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 17)']
+Base Except
+result is ["failed: name 'lenght' is not defined"]
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 11)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: unsupported operand type(s) for -: 'float' and 'builtin_function_or_method'"]
+Base Except
+result is ['failed: isinstance() arg 2 must be a type or tuple of types']
+try done
+result is ['passed']
+Base Except
+result is ['failed: expected an indented block (<string>, line 11)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 19)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 11)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 10)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 24)']
+Base Except
+result is ['failed: expected an indented block (<string>, line 27)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 14)']
+Base Except
+result is ["failed: closing parenthesis ']' does not match opening parenthesis '(' (<string>, line 19)"]
+Base Except
+result is ["failed: name 'fibonacci' is not defined"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 24)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ["failed: name 'triangle_sides' is not defined"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 11)']
+Base Except
+result is ["failed: name 'reverse_words' is not defined"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'segment' is not defined"]
+Base Except
+result is ['failed: unexpected indent (<string>, line 19)']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 25)']
+Base Except
+result is ['failed: unexpected indent (<string>, line 13)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: expected an indented block (<string>, line 14)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: expected an indented block (<string>, line 25)']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+Base Except
+result is ['failed: expected an indented block (<string>, line 20)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 35)']
+Base Except
+result is ["failed: unsupported operand type(s) for >>: 'str' and 'int'"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ["failed: name 'fruitDistribution' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 36)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 20)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: closing parenthesis ']' does not match opening parenthesis '(' (<string>, line 17)"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 11)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 17)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 55)']
+Base Except
+result is ["failed: name 'hexadecimal' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'primeNumbers' is not defined"]
+Base Except
+result is ["failed: name 'starts_ends' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 9)']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 15)']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 22)']
+Base Except
+result is ['failed: Error']
+Base Except
+result is ["failed: name 'text' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 13)']
+Base Except
+result is ['failed: expected an indented block (<string>, line 16)']
+Base Except
+result is ['failed: This prints if this assert fails 3 (good for debugging!)']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: Second test error: True']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: First test error: 60976']
+Base Except
+result is ['failed: expected an indented block (<string>, line 18)']
+Base Except
+result is ['failed: Test 2']
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 15)']
+Base Except
+result is ['failed: Error']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 11)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 29)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: expected an indented block (<string>, line 33)']
+Base Except
+result is ["failed: name 'x' is not defined"]
+Base Except
+result is ["failed: name 'lenght' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 54)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: First test error: <filter object at 0x103022dc0>']
+Base Except
+result is ['failed: unexpected indent (<string>, line 17)']
+Base Except
+result is ["failed: name 'is_balanced' is not defined"]
+Base Except
+result is ["failed: name 'reverse' is not defined"]
+Base Except
+result is ["failed: name 'odd_k' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 19)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 22)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'lenght' is not defined"]
+Base Except
+result is ["failed: name 'vis' is not defined"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 30)']
+Base Except
+result is ["failed: name 'digits_in' is not defined"]
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 16)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 12)']
+Base Except
+result is ["failed: name 'lenght_of_list' is not defined"]
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 14)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 9)']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 14)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 20)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 22)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 14)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 11)']
+Base Except
+result is ["failed: name 'TripletsHelperKhara' is not defined"]
+Base Except
+result is ['failed: unexpected indent (<string>, line 18)']
+Base Except
+result is ["failed: local variable 'lastsorted' referenced before assignment"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 15)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 18)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 25)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+Base Except
+result is ['failed: unexpected indent (<string>, line 31)']
+Base Except
+result is ['failed: unexpected indent (<string>, line 28)']
+Base Except
+result is ['failed: invalid syntax (<string>, line 13)']
+Base Except
+result is ["failed: name 'hashlib' is not defined"]
+Base Except
+result is ["failed: name 'is_even' is not defined"]

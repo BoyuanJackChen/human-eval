@@ -1,0 +1,332 @@
+try done
+result is ['passed']
+
+
+Time out
+
+
+result is ['timed out']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: invalid syntax (<string>, line 17)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 11)']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 24)']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'fib' is not defined"]
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: maximum recursion depth exceeded in comparison']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+try done
+result is ['passed']
+Base Except
+result is ["failed: name 'VOWELS' is not defined"]
+try done
+result is ['passed']
+try done
+result is ['passed']
+Base Except
+result is ["failed: invalid literal for int() with base 10: 'apples'"]
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: First test error: False']
+Base Except
+result is ['failed: First test error: 0']
+try done
+result is ['passed']
+Base Except
+result is ['failed: abcd']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'prime_numbers' is not defined"]
+Base Except
+result is ["failed: name 'ends_one_starts' is not defined"]
+Base Except
+result is ['failed: Error']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 15)']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 22)']
+Base Except
+result is ['failed: Error']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: Test 2']
+Base Except
+result is ['failed: This prints if this assert fails 3 (good for debugging!)']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: Second test error: True']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: First test error: 60976']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: invalid literal for int() with base 10: '14.5'"]
+Base Except
+result is ['failed: maximum recursion depth exceeded in comparison']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: invalid syntax (<string>, line 52)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: Error']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 11)']
+Base Except
+result is ["failed: name 'is_palindrome' is not defined"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 29)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: This prints if this assert fails 2 (good for debugging!)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: Test 1']
+try done
+result is ['passed']
+Base Except
+result is ['failed: Error']
+try done
+result is ['passed']
+Base Except
+result is ['failed: First test error: []']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: invalid literal for int() with base 10: '-'"]
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+Base Except
+result is ['failed: This prints if this assert fails 5 (good for debugging!)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'prod' is not defined"]
+Base Except
+result is ["failed: '<' not supported between instances of 'float' and 'list'"]
+Base Except
+result is ['failed: invalid syntax (<string>, line 43)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: This prints if this assert fails 1 (good for debugging!)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: min() arg is an empty sequence']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 14)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 14)']
+Base Except
+result is ['failed: This prints if this assert fails 2 (good for debugging!)']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'prime_number' is not defined"]
+Base Except
+result is ['failed: test1']
+Base Except
+result is ["failed: invalid literal for int() with base 10: '-'"]
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: This prints if this assert fails 3 (good for debugging!)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 19)']
+Base Except
+result is ['failed: test #0']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+try done
+result is ['passed']
+Base Except
+result is ['failed: unindent does not match any outer indentation level (<string>, line 12)']
+try done
+result is ['passed']
+Base Except
+result is ['failed: ']
+Base Except
+result is ['failed: ']
+Base Except
+result is ["failed: name 'hashlib' is not defined"]
+Base Except
+result is ['failed: Test 1']

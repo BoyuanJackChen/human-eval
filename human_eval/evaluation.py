@@ -169,7 +169,6 @@ def evaluate_functional_correctness(
     # print(len(completion_id), len(problems))
     print("Running test suites...")
     for future in futures:
-        # print(f"future is {future}")
         result = future
         results[result["task_id"]].append((result["completion_id"], result))
 
