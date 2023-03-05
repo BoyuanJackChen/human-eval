@@ -49,7 +49,7 @@ def main(args):
     num_beam_groups = args.num_beam_groups
     beam_diversity_rate = args.beam_diversity_rate
     all_beam_widths = [4]
-    all_diversity = [0.5, 0.7, 1.0, 0.1]
+    all_diversity = [1.0, 0.1]
     all_exit_layers = np.array([])
 
     def generate_one_completion(prompt, all_exit_layers):
