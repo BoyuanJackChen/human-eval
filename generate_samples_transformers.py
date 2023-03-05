@@ -49,7 +49,7 @@ def main(args):
     num_beam_groups = args.num_beam_groups
     beam_diversity_rate = args.beam_diversity_rate
     all_beam_widths = [4]
-    all_diversity = [0.3]
+    all_diversity = [0.5, 0.7, 1.0, 0.1]
     all_exit_layers = np.array([])
 
     def generate_one_completion(prompt, all_exit_layers):
@@ -88,11 +88,8 @@ def main(args):
                     )
                     samples.append(sample)
 
-            filename = f"softmax_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
-            if args.early_exit_layer is not None:
-                filename += f"_early{args.early_exit_layer}"
+            filename = f"samples_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
             write_jsonl(filename + ".jsonl", samples)
-            np.save(filename + "_early_layers.npy", all_exit_layers)
             print(np.mean(all_exit_layers))
 
 if __name__== "__main__":
