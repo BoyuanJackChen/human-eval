@@ -76,7 +76,7 @@ def main(args):
     for beam_width in all_beam_widths:
         for beam_diversity_rate in all_diversity:
             num_beam_groups = beam_width
-            print(f"samples started on {beam_width, beam_diversity_rate, softmax_threshold}")
+            print(f"samples started on {beam_width, beam_diversity_rate}")
             samples = []
             for task_id in problems:
                 print(f"Generating task {task_id}")
