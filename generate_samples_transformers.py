@@ -87,7 +87,6 @@ def main(args):
                         completion=completion
                     )
                     samples.append(sample)
-                    print(all_exit_layers)
 
             filename = f"softmax_{beam_width}_{num_beam_groups}_{beam_diversity_rate}_transformers{model_name}"
             if args.early_exit_layer is not None:
